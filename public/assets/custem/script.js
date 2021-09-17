@@ -4,73 +4,73 @@ $(function () {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
     }); // TO SEND THE CSRF TOKEN WITH AJAX REQUEST
 
-        // $('body').on('click', '.show-student-form', function (e) {
-        //     e.preventDefault();
-        //     let btn       = $(this),
-        //         form     = $('body').find('#load-form');
-        //     if (! btn.attr('href')) {
-        //         return false;
-        //     }
+        $('body').on('click', '.show-student-form', function (e) {
+            e.preventDefault();
+            let btn       = $(this),
+                form     = $('body').find('#load-form');
+            if (! btn.attr('href')) {
+                return false;
+            }
 
-        //     form.addClass('load');
-        //     $.ajax({
-        //         url: btn.attr('href'),
-        //         type: "GET",
-        //         success: function (data, textStatus, jqXHR) {
-        //             form.removeClass('load').form('show');
-        //         },
-        //         error: function(jqXhr) {
-        //            alert('something wrong');
-        //         },
-        //     });
-        // }); //show student register form
+            form.addClass('load');
+            $.ajax({
+                url: btn.attr('href'),
+                type: "GET",
+                success: function (data, textStatus, jqXHR) {
+                    form.removeClass('load').form('show');
+                },
+                error: function(jqXhr) {
+                   alert('something wrong');
+                },
+            });
+        }); //show student register form
 
-        // $('body').on('click', '.show-teacher-form', function (e) {
-        //     e.preventDefault();
-        //     let btn       = $(this),
-        //         form     = $('body').find('#load-teaher-form');
+        $('body').on('click', '.show-teacher-form', function (e) {
+            e.preventDefault();
+            let btn       = $(this),
+                form     = $('body').find('#load-teaher-form');
 
-        //     if (! btn.attr('href')) {
-        //         return false;
-        //     }
+            if (! btn.attr('href')) {
+                return false;
+            }
 
-        //     form.addClass('load');
-        //     $.ajax({
-        //         url: btn.attr('href'),
-        //         type: "GET",
-        //         success: function (data, textStatus, jqXHR) {
+            form.addClass('load');
+            $.ajax({
+                url: btn.attr('href'),
+                type: "GET",
+                success: function (data, textStatus, jqXHR) {
 
-        //             activeElement.addClass("active");
-        //             form.removeClass('load').form('show');
-        //         },
-        //         error: function(jqXhr) {
-        //            alert('something wrong');
-        //         },
-        //     });
-        // }); //show teacher register form
+                    activeElement.addClass("active");
+                    form.removeClass('load').form('show');
+                },
+                error: function(jqXhr) {
+                   alert('something wrong');
+                },
+            });
+        }); //show teacher register form
 
-        // $('body').on('click', '.show-login-form', function (e) {
-        //     e.preventDefault();
-        //     let btn       = $(this),
-        //         form     = $('body').find('#load-form');
+        $('body').on('click', '.show-login-form', function (e) {
+            e.preventDefault();
+            let btn       = $(this),
+                form     = $('body').find('#load-form');
 
-        //     if (! btn.attr('href')) {
-        //         return false;
-        //     }
+            if (! btn.attr('href')) {
+                return false;
+            }
 
-        //     form.addClass('load');
-        //     $.ajax({
-        //         url: btn.attr('href'),
-        //         type: "GET",
-        //         success: function (data, textStatus, jqXHR) {
+            form.addClass('load');
+            $.ajax({
+                url: btn.attr('href'),
+                type: "GET",
+                success: function (data, textStatus, jqXHR) {
 
-        //             form.removeClass('load').form('show');
-        //         },
-        //         error: function(jqXhr) {
-        //            alert('something wrong');
-        //         },
-        //     });
-        // }); //show login form
+                    form.removeClass('load').form('show');
+                },
+                error: function(jqXhr) {
+                   alert('something wrong');
+                },
+            });
+        }); //show login form
 
         $('body').on('submit', 'form.submit-form', function(e) {
             e.preventDefault();
