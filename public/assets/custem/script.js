@@ -75,7 +75,7 @@ $(function () {
         $('body').on('submit', 'form.submit-form', function(e) {
             e.preventDefault();
             let form = $(this);
-
+            form.find('span.error').fadeOut(200);
             $.ajax({
                 url: form.attr('action'),
                 type: "POST",
@@ -84,18 +84,40 @@ $(function () {
                 processData: false,
                 contentType: false,
                 success: function (data, textStatus, jqXHR) {
-                    // if (data.redirect) {
-                    //     return window.location = data.redirect;
-                    // }
+                    if (data.redirect) {
+                        return window.location = data.redirect;
+                    }
+                    $('#edit-profile').modal("hide");
                     toast(data.message, null, data.alert_type);
                 },
-                error: function (jqXHR) {
-                    var message = '';
-                    if(jqXHR.status == 422){
-                        $.each(jqXHR.responseJSON.errors, function(key,value) {
-                            message += `\n ${value} \n`;
+                // error: function (jqXHR) {
+                //     var message = '';
+                //     if(jqXHR.status == 422){
+                //         $.each(jqXHR.responseJSON.errors, function(key,value) {
+                //             message += `\n ${value} \n`;
+                //         });
+                     
+                //         toast(message);
+                //     }
+                // },
+                error: function (jqXhr, textStatus, errorMessage) {
+                    if (jqXhr.readyState == 0) {
+                        return false;
+                    } else if (jqXhr.status == 422) {
+                        $.each(jqXhr.responseJSON.errors, function (key, val) {
+                            key = key.split('.');
+                            if (key.length > 1) {
+                                form.find(`input[name*='${key[0]}[${key[1]}][${key[2]}]']`).parent().next('span.error').text(val).fadeIn(300);
+                            } else {
+                                form.find(`#${key}-error`).text(val).fadeIn(300);
+                            }
                         });
-                        toast(message);
+                    } else {
+                        if (jqXhr.responseJSON.line) {
+                            toast('File: ' + jqXhr.responseJSON.file + ' (Line: ' + jqXhr.responseJSON.line + ')', jqXhr.responseJSON.message)
+                        } else {
+                            toast(jqXhr.responseJSON, title = null);
+                        }
                     }
                 },
             });

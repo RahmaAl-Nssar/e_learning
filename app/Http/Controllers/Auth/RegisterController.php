@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends Controller
 {
@@ -60,17 +61,19 @@ class RegisterController extends Controller
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
                 'job'      => 'required',
                 'bio'      => 'required',
-                'code'     => function ($attribute, $value, $fail) use ($data) {
-                    $code = Code::where('name', $value)->first();
-                    if (!is_null($code)) {
-                        $code_registered = Teacher::where('code', $value)->first();
-                        if (!is_null($code_registered)) {
-                            $fail('الكود مستخدم من قبل');
-                        }
-                    } else {
-                        $fail('الكود غير صحيح');
-                    }
-                }
+                'image'   =>'nullable'
+                // 'code'     => function ($attribute, $value, $fail) use ($data) {
+                //     $code = Code::where('name', $value)->first();
+                //     if (!is_null($code)) {
+                //         $code_registered = Teacher::where('code', $value)->first();
+                //         if (!is_null($code_registered)) {
+                //             $fail('الكود مستخدم من قبل');
+                      
+                //     } else {
+                //         $fail('الكود غير صحيح');
+                //     }
+                // }
+                // }
             ]);
         } else {
             return  Validator::make($data, [
@@ -91,22 +94,33 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+       
+        
         if (array_key_exists('code', $data)) {
+            DB::beginTransaction();
+            try{
             $user =  User::create([
                 'role'   => 'teacher',
                 'name'   => $data['name'],
                 'email'  => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
-            Teacher::create([
+           
+            $t = Teacher::create([
                 'user_id'  => $user->id,
                 'job'     => $data['job'],
                 'bio'      => $data['bio'],
                 'code'     => $data['code']
             ]);
-            return response()->json(['message' => 'Teacher add successfully', 'alert_type' => 'success']);
+           
+           
+           DB::commit();
+            }catch(\Exception $e){
+                return response()->json(['message' => 'something wrong', 'alert_type' => 'error']);
+            }
         } else {
-
+            DB::beginTransaction();
+            try{
             $user =  User::create([
                 'role'   => 'student',
                 'name'   => $data['name'],
@@ -118,6 +132,11 @@ class RegisterController extends Controller
                 'level_id' => $data['level_id'],
                 'phone_number' => $data['phone_number']
             ]);
+            
+            DB::commit();
+        }catch(\Exception $e){
+            return response()->json(['message' => 'something wrong', 'alert_type' => 'error']);
+        }
         }
     }
 
@@ -125,7 +144,7 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
         $user = $this->create($request->all());
-        $this->guard()->login($user);
-        return response()->json(['message' => 'Student add successfully', 'alert_type' => 'success']);
+     //   $this->guard()->login($user);
+        return response()->json(['message' => 'Added successfully', 'alert_type' => 'success']);
     }
 }

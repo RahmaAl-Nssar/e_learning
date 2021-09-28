@@ -57,6 +57,7 @@
                     <div class="form-group">
                         <label class="text-light float-right" for="code">كود المحاضر </label>
                         <input class="form-control input-circle" id="code" type="text" name="code">
+                        <span class="error red" id="code-error" style="color:red"></span>
                     </div>
                 </div>
                 <!-- Name -->
@@ -64,6 +65,7 @@
                     <div class="form-group">
                         <label class="text-light float-right" for="name">اسم المستخدم</label>
                         <input class="form-control input-circle" id="name" type="text" name="name">
+                        <span class="error red" id="name-error" style="color:red"></span>
                     </div>
                 </div>
                 <!-- Email -->
@@ -71,6 +73,7 @@
                     <div class="form-group">
                         <label class="text-light float-right" for="email">البريد الالكتروني</label>
                         <input class="form-control input-circle" id="email" type="email" name="email">
+                        <span class="error red" id="email-error" style="color:red"></span>
                     </div>
                 </div>
                 <!-- Password -->
@@ -78,6 +81,7 @@
                     <div class="form-group">
                         <label class="text-light float-right" for="password">كلمة المرور</label>
                         <input class="form-control input-circle" id="password" type="password" name="password">
+                        <span class="error red" id="password-error" style="color:red"></span>
                     </div>
                 </div>
                 <!-- Password -->
@@ -86,6 +90,7 @@
                         <label class="text-light float-right" for="password">اعادة كلمة المرور</label>
                         <input class="form-control input-circle" id="password" type="password"
                             name="password_confirmation">
+                            <span class="error red" id="password_confirmation-error" style="color:red"></span>
                     </div>
                 </div>
                 <!-- job -->
@@ -93,6 +98,7 @@
                     <div class="form-group">
                         <label class="text-light float-right" for="password"> العمل</label>
                         <input class="form-control input-circle" id="job" type="text" name="job">
+                        <span class="error red" id="job-error" style="color:red"></span>
                     </div>
                 </div>
                 <!-- bio -->
@@ -100,6 +106,7 @@
                     <div class="form-group">
                         <label class="text-light float-right" for="email"> نبذة مختصرة</label>
                         <textarea class="form-control input-circle" id="bio" name="bio"></textarea>
+                        <span class="error red" id="bio-error" style="color:red"></span>
                     </div>
                 </div>
                 <!-- Submit Button -->

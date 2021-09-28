@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role'
+        'name', 'email', 'password','role','image'
     ];
 
     /**
@@ -36,4 +36,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getImageUrlAttribute(){
+        if($this->image != null)
+        return asset('storage/uploads/users/'.$this->image);
+    }
+
+    public function teacher(){
+        return $this->hasOne('App\Models\Teacher','user_id');
+    }
+
+
 }

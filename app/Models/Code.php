@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Code extends Model
 {
+    
     protected $fillable = [
         'name','user_id'
     ];

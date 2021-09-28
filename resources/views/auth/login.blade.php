@@ -9,6 +9,7 @@
 @section('title','login')
 
 @section('bg-color','#212124')
+
 @section('content')
 <section class="login-sec mt-5" dir="rtl" id="load-form">
     <!-- Header -->
@@ -19,21 +20,24 @@
        تسجيل الدخول
    </h1>
    <!-- Form -->
-   <form action="">
+   <form action="{{route('login')}}" method="post" class="submit-form">
+ @csrf
     <div class="container w-lg-50">
       <div class="row text-right mt-4">
         <!-- Name Or Email -->
         <div class="col-12">
           <div class="form-group">
-              <label class="text-light float-right" for="name">اسم المستخدم</label>
-              <input class="form-control input-circle" id="name" type="text">
+              <label class="text-light float-right" for="email">اسم المستخدم</label>
+              <input class="form-control input-circle" id="email" type="text" name="email">
+              <span class="error red" id="email-error" style="color:red"></span>
           </div>
         </div>
         <!-- Password -->
         <div class="col-12">
           <div class="form-group">
               <label class="text-light float-right" for="password">كلمة المرور</label>
-              <input class="form-control input-circle" id="password" type="password">
+              <input class="form-control input-circle" id="password" type="password" name="password">
+              <span class="error red" id="password-error" style="color:red"></span>
           </div>
         </div>
         <!-- Submit -->

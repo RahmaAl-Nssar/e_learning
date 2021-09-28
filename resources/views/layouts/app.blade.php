@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/animate.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/css/media.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
     @yield('style')
 </head>
 

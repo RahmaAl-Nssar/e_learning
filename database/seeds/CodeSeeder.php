@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Code;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CodeSeeder extends Seeder
 {
@@ -12,17 +14,17 @@ class CodeSeeder extends Seeder
      */
     public function run()
     {
-        $codes = [
-            'name'=>'0001',
-            'name'=>'0002',
-            'name'=>'0003',
-            'name'=>'0004',
-            'name'=>'0005',
-            'name'=>'0006',
-            'name'=>'0007',
-            'name'=>'0008',
-            'name'=>'0009',
-           
-        ];
+        DB::table('codes')->insert([
+            ['name' => '0001'],
+            ['name' => '0002'],
+            ['name' => '0003'],
+            ['name' => '0004'],
+            ['name' => '0005'],
+            ['name' => '0006'],
+            ['name' => '0007'],
+            ['name' => '0008'],
+            ['name' => '0009'],
+            
+        ]);
     }
 }

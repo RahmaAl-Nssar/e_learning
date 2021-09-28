@@ -23,6 +23,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = auth()->user();
+        if($user->role == 'teacher'){
+            return view('teachers.teacher-home',compact('user'));
+        }else{
+            return view('students.student-home');
+        }
+        
     }
 }

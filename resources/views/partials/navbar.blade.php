@@ -11,7 +11,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand mx-auto" href="home.html">NavBar</a>
+            <a class="navbar-brand mx-auto" href="home.html">{{ env('APP_NAME') }}</a>
             <div class="collapse navbar-collapse" dir="ltr" id="navbarSupportedContent" style="z-index: 9999999;">
               <ul class="navbar-nav nav-links">
                 <li class="nav-item">
@@ -24,6 +24,7 @@
                     <a class="nav-link text-light" href="explan-video.html">فيديوهات توضيحية</a>
                 </li> 
               </ul>
+              @guest
               <ul class="navbar-nav ml-auto nav-user">
                 <div class="row">
                   <div class="col-6">
@@ -44,6 +45,21 @@
                   </div>
                 </div>
               </ul>
+                @else
+               
+                <ul class="navbar-nav ml-auto nav-user">
+                  <li class="nav-item">
+                    <a class="btn btn-login" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                      تسجيل الخروج
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                      </form>
+                    </a>
+                  </li>
+            </ul>
+              @endguest
+            
             </div>
           </nav>
          
