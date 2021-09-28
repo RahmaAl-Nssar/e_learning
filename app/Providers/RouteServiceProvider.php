@@ -46,9 +46,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        $this->mapTeacherRoutes();
-
-        $this->mapStudentRoutes();
+     
 
         //
     }
@@ -68,21 +66,6 @@ class RouteServiceProvider extends ServiceProvider
     }
 
 
-    protected function mapTeacherRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/teacher.php'));
-    }
-
-
-
-    protected function mapStudentRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/student.php'));
-    }
     /**
      * Define the "api" routes for the application.
      *
