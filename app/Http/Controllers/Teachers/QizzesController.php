@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Teachers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Models\Level;
+use App\Models\Subject;
 class QizzesController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class QizzesController extends Controller
     {
         $user = User::where('id',auth()->id())->first();
         
-        return view('teachers.quizzes',compact('user'));
+        return view('teachers.quizzes.index',compact('user'));
     }
 
     /**
@@ -26,9 +28,14 @@ class QizzesController extends Controller
      */
     public function create()
     {
-        //
+        $levels = Level::select('id','name')->get();
+        return view('teachers.quizzes.create',compact('levels'));
     }
 
+    public function get_subjects($id){
+        $subjects = Subject::where('level_id',$id)->select('id','name')->get();
+        return $subjects;
+    }
     /**
      * Store a newly created resource in storage.
      *

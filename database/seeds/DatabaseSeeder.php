@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             LevelsSeeder::class,
             CodeSeeder::class,
-         
+            SubjectsSeeder::class,
         ]);
         
     }

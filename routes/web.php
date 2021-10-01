@@ -28,9 +28,9 @@ Route::group(
         
     ], function() {
         Route::get('/home', 'HomeController@index')->name('home');
-        Route::post('edit_teacher', 'Teachers\ProfileController@update')->name('teacher.update');  
+        Route::post('edit_teacher', 'ProfileController@updateTeacher')->name('teacher.update');  
         Route::resource('quizes', 'Teachers\QizzesController');
-
+        Route::get('get_subjects/{id}','Teachers\QizzesController@get_subjects')->name('teacher.get_subjects');
 });
 
 Auth::routes();

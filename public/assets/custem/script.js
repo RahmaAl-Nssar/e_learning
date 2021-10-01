@@ -123,6 +123,69 @@ $(function () {
             });
         }); // WHEN SUBMIT THE FORM SEND DATA TO CONTROLLER
 
+        // show modal
+        $('body').on('click', '#create_quiz', function (e) {
+            // e.preventDefault();
+            let btn       = $(this),
+                form     = $('body').find('#load-form');
+
+            if (! btn.attr('href')) {
+                return false;
+            }
+
+            form.addClass('load');
+            $.ajax({
+                url: btn.attr('href'),
+                type: "GET",
+                success: function (response) {
+                    $('#var_content').html(response);
+                    form.removeClass('load').form('show');
+                },
+                error: function (jqXHR) {
+                    var message = '';
+                    if(jqXHR.status == 422){
+                        $.each(jqXHR.responseJSON.errors, function(key,value) {
+                            message += `\n ${value} \n`;
+                        });
+                     
+                        toast(message);
+                    }
+                },
+            });
+        }); 
+
+ // get subjects when change level
+
+ $('body').on('change', '#level_id', function () {
+    let id = this.value;
+    let subject = $('#subject_id');
+    console.log(subject);
+      $.ajax({
+          url: 'get_subjects/'+id,
+          type: "GET",
+          success: function (response) {
+            
+            
+            subject.empty();
+            response.each(function(index,value){
+                console.log(value);
+              subject.append(`<option value="${value.id}">${value.name}</option>`);
+            })
+         
+          },
+          error: function (jqXHR) {
+              var message = '';
+              if(jqXHR.status == 422){
+                  $.each(jqXHR.responseJSON.errors, function(key,value) {
+                      message += `\n ${value} \n`;
+                  });
+               
+                  toast(message);
+              }
+          },
+      });
+  });
+        
 
     function toast(message, title = null, icon = 'error', timer = 5000)
     {

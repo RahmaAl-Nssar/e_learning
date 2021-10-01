@@ -8,7 +8,7 @@
         <a href="students.html" class="text-light h4">طلابي</a>
       </li>
       <li class="mt-5">
-        <a href="{{ url('quizes') }}" class="{{ set_active(['quizes*']) }}text-light h4">كوزاتي</a>
+        <a href="{{ url('quizes') }}" class="@if (strpos(Request::url(),'quizes') !== null) text-yellow @endif text-light h4">كوزاتي</a>
       </li>
     </ul>
   </div>
