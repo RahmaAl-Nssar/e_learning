@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Teachers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\QuizeRequest;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Models\Level;
 use App\Models\Subject;
+use App\Models\Quiz;
 class QizzesController extends Controller
 {
     /**
@@ -16,9 +19,15 @@ class QizzesController extends Controller
      */
     public function index()
     {
+        try{
+        // if(request()->ajax())
+        // return view('teachers.quizzes.table');
         $user = User::where('id',auth()->id())->first();
-        
-        return view('teachers.quizzes.index',compact('user'));
+        $quizzes = Quiz::paginate(10);
+            return view('teachers.quizzes.index',compact('user','quizzes'));
+        } catch(\Exception $e){
+            return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
+        }
     }
 
     /**
@@ -29,12 +38,17 @@ class QizzesController extends Controller
     public function create()
     {
         $levels = Level::select('id','name')->get();
-        return view('teachers.quizzes.create',compact('levels'));
+        
+        return view('teachers.quizzes.form-tag',compact('levels'));
     }
 
     public function get_subjects($id){
         $subjects = Subject::where('level_id',$id)->select('id','name')->get();
         return $subjects;
+    }
+
+    public function publishedStatus($id){
+        $quiz = Quiz::where('id',$id);
     }
     /**
      * Store a newly created resource in storage.
@@ -42,9 +56,18 @@ class QizzesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuizeRequest $request)
     {
-        //
+       DB::beginTransaction();
+        try{
+            Quiz::create($request->all());
+        
+        DB::commit();
+        return response()->json(['message' => 'Quiz Added suucessfully', 'alert_type' => 'success']);
+     } catch(\Exception $e){
+            return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
+        }
+
     }
 
     /**
@@ -66,7 +89,19 @@ class QizzesController extends Controller
      */
     public function edit($id)
     {
-        //
+        try{
+            $quiz = Quiz::where('id',$id)->first();
+            $levels = Level::select('id','name')->get();
+            $subjects = Subject::where('level_id',$quiz->subject->level->id)->get();
+            if(!$quiz){
+            return response()->json(['message' => 'quiz not found', 'alert_type' => 'error']); 
+            }else{
+            return view('teachers.quizzes.form-tag',compact('quiz','levels','subjects'));
+            }
+           
+     } catch(\Exception $e){
+            return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
+        }
     }
 
     /**
@@ -76,9 +111,17 @@ class QizzesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuizeRequest $request,Quiz $quiz)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $quiz->update($request->all());
+            
+        DB::commit();
+        return response()->json(['message' => 'Quiz updated suucessfully', 'alert_type' => 'success']);
+     } catch(\Exception $e){
+            return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
+        }
     }
 
     /**
@@ -87,8 +130,16 @@ class QizzesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Quiz $quiz)
     {
-        //
+        DB::beginTransaction();
+        try{
+            $quiz->delete();
+            
+        DB::commit();
+        return response()->json(['message' => 'Quiz deleted suucessfully', 'alert_type' => 'success']);
+     } catch(\Exception $e){
+            return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
+        }
     }
 }

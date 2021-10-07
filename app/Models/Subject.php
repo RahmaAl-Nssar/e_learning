@@ -10,7 +10,14 @@ class Subject extends Model
         'name','level_id'
     ];
 
-    public function user(){
+    public function level(){
         return $this->belongsTo('App\Models\Level','level_id');
     }
+
+    public function quizzes(){
+        return $this->hasMany('App\Models\Quiz','subject_id');
+    }
+
+   
+
 }

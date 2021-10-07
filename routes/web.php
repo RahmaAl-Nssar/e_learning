@@ -29,6 +29,7 @@ Route::group(
     ], function() {
         Route::get('/home', 'HomeController@index')->name('home');
         Route::post('edit_teacher', 'ProfileController@updateTeacher')->name('teacher.update');  
+        Route::get('edit_teacher', 'ProfileController@edit')->name('teacher.edit.profile');
         Route::resource('quizes', 'Teachers\QizzesController');
         Route::get('get_subjects/{id}','Teachers\QizzesController@get_subjects')->name('teacher.get_subjects');
 });

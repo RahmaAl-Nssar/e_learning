@@ -20,7 +20,7 @@ class CreateQuizzesTable extends Migration
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade')->onUpdate('cascade');
             $table->smallInteger('duration');
             $table->string('expires_at');
-            $table->boolean('published');
+            $table->boolean('published')->default(0);
             $table->timestamps();
         });
     }

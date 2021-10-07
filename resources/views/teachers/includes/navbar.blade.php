@@ -16,6 +16,6 @@
           </div>
           <!-- Edit Profile Button -->
           <div class="col-lg-2 col-4 text-light align-self-center">
-            <button class="btn btn-edit" data-toggle="modal" data-target="#edit-profile">تعديل البروفايل</button>
+            <a href="{{ route('teacher.edit.profile') }}" type="button" class="btn btn-edit" data-toggle="modal" data-target="#edit-course" id="create_quiz">تعديل البروفايل</a>
           </div>
         </div>

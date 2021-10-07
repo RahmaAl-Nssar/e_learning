@@ -23,6 +23,13 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function edit()
+    {
+        $user = User::where('id',auth()->id())->first();
+        
+        return view('teachers.includes.form-profile',compact('user'));
+    }
+
     public function updateTeacher(TeacherRequest $request)
     {
         
