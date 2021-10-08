@@ -20,11 +20,14 @@ class QizzesController extends Controller
     public function index()
     {
         try{
-        // if(request()->ajax())
-        // return view('teachers.quizzes.table');
-        $user = User::where('id',auth()->id())->first();
-        $quizzes = Quiz::paginate(10);
-            return view('teachers.quizzes.index',compact('user','quizzes'));
+        if(request()->ajax()){
+            $quizzes = Quiz::paginate(10);
+            return view('teachers.quizzes.table',compact('quizzes'));
+           
+        }else{
+            $user = User::where('id',auth()->id())->first();
+            return view('teachers.quizzes.index',compact('user'));
+        }
         } catch(\Exception $e){
             return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
         }
@@ -111,10 +114,13 @@ class QizzesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(QuizeRequest $request,Quiz $quiz)
+    public function update(QuizeRequest $request,$id)
     {
+       
         DB::beginTransaction();
         try{
+            $quiz = Quiz::findOrFail($id);
+            
             $quiz->update($request->all());
             
         DB::commit();
@@ -130,14 +136,14 @@ class QizzesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Quiz $quiz)
+    public function destroy($id)
     {
         DB::beginTransaction();
         try{
+           $quiz = Quiz::findOrFail($id);
             $quiz->delete();
-            
         DB::commit();
-        return response()->json(['message' => 'Quiz deleted suucessfully', 'alert_type' => 'success']);
+        return response()->json(['message' => 'Quiz removed suucessfully', 'alert_type' => 'success','icon'=>'success']);
      } catch(\Exception $e){
             return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
         }

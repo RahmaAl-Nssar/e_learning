@@ -46,8 +46,8 @@
         
       </div>
       <div class="row justify-content-around my-4" style="margin-right: 250px">
-        <div class="col-11 table">
-           @include('teachers.quizzes.table')
+        <div class="col-11 table" id="load-data">
+           {{-- @include('teachers.quizzes.table') --}}
         </div>
     </div>
     </div>

@@ -187,6 +187,37 @@ $(function () {
         });
     });
 
+    $('body').on('submit', 'form.form-destroy', function (e) {
+        e.preventDefault();
+        let href = $(this).attr('action'), data = $(this).serialize();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: href,
+                    type: "post",
+                    data: data,
+                    success: function (data, textStatus, jqXHR) {
+                        toast(data.message, null, data.icon)
+                        rows();
+                        $('#recourds-count').text(data.count);
+                    },
+                    error: function (jqXHR) {
+                        if (jqXHR.readyState == 0)
+                            return false;
+                        toast('File: ' + jqXHR.responseJSON.file + ' (Line: ' + jqXHR.responseJSON.line + ')', jqXHR.responseJSON.message, icon = 'error')
+                    },
+                });
+            }
+        })
+    }); // WHEN SUBMIT THE FORM TO DELETE THE ROW
     // get subjects when change level
 
     $("body").on("change", "#level_id", function () {

@@ -22,14 +22,23 @@
                 <td>{{ $quiz->subject->name }}</td>
                 <td></td>
                 <td>{{ $quiz->subject->level->name }}</td>
-                <td></td>
+                <td><input type="checkbox" id="switcherySize" class="switchery" data-size="lg" {{ $quiz->published == 1 ? 'checked':'' }} /></td>
+                    
+                
 
                 <td class="d-max-none">الاسئلة</td>
                 <td class="d-max-none">النتائج</td>
 
                 <td><a type="button" href="{{ route('quizes.edit', $quiz->id) }}" class="btn btn-edit"
                         data-toggle="modal" data-target="#edit-course" id="create_quiz">تعديل</a></td>
-                <td><button class="btn btn-edit" data-toggle="modal" data-target="#delete-course">حذف</button></td>
+               
+                <td>
+                    <form action="{{ route('quizes.destroy',$quiz->id) }}" method="post" class="form-destroy">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-edit" type="submit">حذف</button>
+                    </form>
+                </td>
         </tr>
     @empty
         <tr>
