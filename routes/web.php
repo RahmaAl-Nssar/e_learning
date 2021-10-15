@@ -22,7 +22,7 @@ Route::get('teacher', function () {
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale(),'teacher',
+        'prefix' => LaravelLocalization::setLocale(),
         'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ],
        // 'namespace'=>'Teachers',
         
@@ -32,6 +32,13 @@ Route::group(
         Route::get('edit_teacher', 'ProfileController@edit')->name('teacher.edit.profile');
         Route::resource('quizes', 'Teachers\QizzesController');
         Route::get('get_subjects/{id}','Teachers\QizzesController@get_subjects')->name('teacher.get_subjects');
+        Route::prefix('qusetion')->group(function () {
+            Route::get('index/{id}','Teachers\QusetionsController@index')->name('qusetions.index');
+            Route::get('create/{id}','Teachers\QusetionsController@create')->name('qusetions.create');
+            Route::post('store','Teachers\QusetionsController@store')->name('qusetions.store');
+            Route::get('edit/{id}','Teachers\QusetionsController@edit')->name('edit.question');
+            
+        });
 });
 
 Auth::routes();

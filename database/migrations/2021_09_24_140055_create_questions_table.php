@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade')->onUpdate('cascade');
             $table->string('content',500);
             $table->tinyInteger('full_mark');
+            $table->string('correct_answer');
             $table->string('image')->null();
             $table->timestamps();
         });

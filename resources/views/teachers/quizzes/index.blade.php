@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="{{ asset('assets/js/toggle/bootstrap-switch.min.js') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/toggle/switchery.min.js') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/forms/switch.min.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('assets/custem/swich.css') }}">
+   
 @endsection
 @section('title', 'Quizzes')
 

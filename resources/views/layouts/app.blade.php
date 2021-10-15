@@ -73,6 +73,8 @@
     <script src="{{ asset('assets/js/jquery.nicescroll.min.js')}}"></script>
     <script src="{{ asset('assets/js/main.js')}}"></script>
     <script src="{{ asset('assets/custem/script.js') }}"></script>
+    <script src="{{asset('assets/vendors/repeater/jquery.repeater.min.js')}}"></script>
+<script src="{{ asset('assets/js/forms/form-repeater.min.js') }}"></script>
     @include('sweetalert::alert')
     @yield('script')
 </body>

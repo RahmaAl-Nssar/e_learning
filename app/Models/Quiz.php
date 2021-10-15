@@ -13,4 +13,9 @@ class Quiz extends Model
     public function subject(){
         return $this->belongsTo('App\Models\Subject','subject_id');
     }
+
+    public function question()
+   {
+       return $this->hasMany('App\Models\Question','quiz_id');
+   }
 }

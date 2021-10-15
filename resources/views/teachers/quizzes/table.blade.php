@@ -15,19 +15,15 @@
     <tbody>
         <tr>
             @forelse ($quizzes as $quiz)
-
-
-
                 <td>{{ $quiz->title }}</td>
                 <td>{{ $quiz->subject->name }}</td>
                 <td></td>
                 <td>{{ $quiz->subject->level->name }}</td>
-                <td><input type="checkbox" id="switcherySize" class="switchery" data-size="lg" {{ $quiz->published == 1 ? 'checked':'' }} /></td>
-                    
-                
-
-                <td class="d-max-none">الاسئلة</td>
-                <td class="d-max-none">النتائج</td>
+                <td><input type="checkbox" id="switcherySize" class="switchery form-check-label checkbox checkbox-slider--b-flat" data-size="lg" {{ $quiz->published == 1 ? 'checked':'' }} /></td>
+                <td class="d-max-none"><a type="button" href="{{ route('qusetions.index', $quiz->id) }}" class="btn btn-edit"
+                   >الاسئلة</a></td>
+                <td class="d-max-none"><a type="button" href="{{ route('quizes.edit', $quiz->id) }}" class="btn btn-edit"
+                    data-toggle="modal" data-target="#edit-course" id="create_quiz">النتائج</a></td>
 
                 <td><a type="button" href="{{ route('quizes.edit', $quiz->id) }}" class="btn btn-edit"
                         data-toggle="modal" data-target="#edit-course" id="create_quiz">تعديل</a></td>
