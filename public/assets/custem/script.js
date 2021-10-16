@@ -221,9 +221,9 @@ $(function () {
     // get subjects when change level
 
     $("body").on("change", "#level_id", function () {
-        
+
         let id = this.value;
-       
+
         $.ajax({
             url: "get_subjects/" + id,
             type: "GET",
@@ -270,5 +270,5 @@ $(function () {
         });
     }
 
-    
+
 });

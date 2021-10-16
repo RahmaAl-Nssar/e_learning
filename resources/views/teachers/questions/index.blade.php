@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('style')
-   
- 
+
+
 @endsection
 @section('title', 'Questions')
 
@@ -10,7 +10,7 @@
 @section('content')
 <div class="container">
  @include('teachers.includes.navbar')
-    
+
   </div>
 
   <div class="container text-right">
@@ -34,13 +34,13 @@
                   </div>
               </div>
           </div>
-        
+
       </div>
       <div class="row justify-content-around my-4" style="margin-right: 250px">
         <div class="col-11 table" id="load-data">
-           
+
         </div>
-        
+
     </div>
     </div>
 
@@ -50,9 +50,9 @@
 
 @include('partials.modal')
 <!-- ==================================================
-                End Model 
+                End Model
 ================================================== -->
-    
+
   </div>
 @endsection
 @section('script')
@@ -63,7 +63,7 @@
 });
 
 $(document).on('click', '#removeRow', function () {
-    
+
         $(this).closest('.repeatable').remove();
     });
 </script> --}}
@@ -81,7 +81,7 @@ $(document).on('click', '#removeRow', function () {
         html += '</div>';
 
         $('#newRow').append(html);
-        
+
     });
 
     // remove row
