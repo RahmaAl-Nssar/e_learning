@@ -16,5 +16,14 @@ class Question extends Model
    public function answers(){
        return $this->hasMany('App\Models\Answer','question_id');
    }
+
+   public function getImageUrl(){
+       if($this->image != null){
+           return asset('storage/uploads/questions/'.$this->image);
+       }
+       else{
+           return '';
+       }
+   }
    
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Quiz;
+use Carbon\Carbon;
+use App\Models\QuizStudent;
 
 class HomeController extends Controller
 {
@@ -27,7 +30,13 @@ class HomeController extends Controller
         if($user->role == 'teacher'){
             return view('teachers.teacher-home',compact('user'));
         }else{
-            return view('students.student-home');
+            $student = $user->student;
+           
+            $quizzes = Quiz::with('subject')->where('level_id',$student->level_id)->where('published',1)
+            ->whereDate('expires_at','>',Carbon::now()->toDateTimeString())
+            ->latest()->paginate(12);
+            
+            return view('students.student-home',compact('quizzes','student'));
         }
         
     }

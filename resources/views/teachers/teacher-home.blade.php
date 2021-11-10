@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/media.css') }}">
 @endsection
-@section('title', 'register student')
+@section('title', 'teacher home')
 
 @section('bg-color', '#212124')
 

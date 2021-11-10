@@ -17,7 +17,7 @@
                         data-toggle="modal" data-target="#edit-course" id="create_quiz">تعديل</a></td>
                
                 <td>
-                    <form action="#" method="post" class="form-destroy">
+                    <form action="{{ route('qusetion.delete',$question->id) }}" method="post" class="form-destroy">
                     @csrf
                     @method('delete')
                     <button class="btn btn-edit" type="submit">حذف</button>

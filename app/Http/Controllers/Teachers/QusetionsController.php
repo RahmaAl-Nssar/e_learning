@@ -34,7 +34,7 @@ class QusetionsController extends Controller
 
     public function create($id)
     {
-        return view('teachers.questions.form-tag', compact('id'));
+        return view('teachers.questions.form-tag-create', compact('id'));
     }
 
     public function store(QuestionsRequest $request)
@@ -64,15 +64,15 @@ class QusetionsController extends Controller
                 ]);
             }
 
-            if ($request->title) {
-                foreach ($request->title as $item) {
-                    Answer::create([
-                        'question_id' => $question->id,
-                        'content' => $item,
-                        'is_correct' => 0
-                    ]);
-                }
-            }
+            // if ($request->title) {
+            //     foreach ($request->title as $item) {
+            //         Answer::create([
+            //             'question_id' => $question->id,
+            //             'content' => $item,
+            //             'is_correct' => 0
+            //         ]);
+            //     }
+            // }
 
             DB::commit();
             return response()->json(['message' => 'Question Added suucessfully', 'alert_type' => 'success']);
@@ -84,7 +84,7 @@ class QusetionsController extends Controller
     public function edit($id)
     {
         $ques = Question::where('id', $id)->first();
-        return view('teachers.questions.form-tag', compact('ques'));
+        return view('teachers.questions.form-tag-edit', compact('ques'));
     }
 
     public function update(QuestionsRequest $request, $id)
@@ -92,27 +92,28 @@ class QusetionsController extends Controller
         DB::beginTransaction();
         try {
             $question =  Question::where('id', $id)->first();
-            $question->content = $request->content;
-            $question->correct_answer = $request->correct_answer;
-            $question->full_mark = $request->full_mark;
+            $question->update($request->except('image'));
+           
 
             if ($request->has('image')) {
                 $question->image = $this->uploadFile($request->image, 'questions');
             }
             $question->save();
 
-            $answer = Answer::findOrFail($request->correct_answer_id);
-            $answer->update([
+            // $answer = Answer::findOrFail($request->correct_answer_id);
+             $question->answers()->delete();
+            
+            Answer::create([
                 'question_id' => $question->id,
                 'content' => $request->correct_answer,
                 'is_correct' => 1
             ]);
 
             foreach ($request->answers as $item) {
-                $answer = Answer::findOrFail($item['id']);
-                $answer->update([
+               
+                Answer::create([
                     'question_id' => $question->id,
-                    'content' => $item['content'],
+                    'content' => $item,
                     'is_correct' => 0
                 ]);
             }
@@ -131,5 +132,18 @@ class QusetionsController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
         }
+    }
+
+    public function destroy($id){
+        DB::beginTransaction();
+        try{
+       $question = Question::where('id',$id)->first();
+        $question->delete();
+        DB::commit();
+        return response()->json(['message' => 'Question deleted suucessfully', 'alert_type' => 'success']);
+        }catch(\Exception $e){
+            return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
+        }
+
     }
 }

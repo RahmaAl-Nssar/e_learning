@@ -15,8 +15,9 @@
                     <div class="repeatable">
                         <div id="inputFormRow">
                             <div class="input-group mb-3">
-                                <input type="text" name="answers[{{ $answer->id }}][content]" class="form-control m-input input-circle" placeholder="Enter title" autocomplete="off" value="{{ $answer->content ?? '' }}">
-                                <input type="hidden" name="answers[{{ $answer->id }}][id]" value="{{ $answer->id ?? '' }}">
+                                <input type="text" name="answers[]" class="form-control m-input input-circle" placeholder="Enter title" autocomplete="off" value="{{ $answer->content ?? '' }}">
+                                {{-- <input type="text" name="answers[{{ $answer->id }}][content]" class="form-control m-input input-circle" placeholder="Enter title" autocomplete="off" value="{{ $answer->content ?? '' }}"> --}}
+                                {{-- <input type="hidden" name="answers[{{ $answer->id }}][id]" value="{{ $answer->id ?? '' }}"> --}}
                                 <span class="error red" id="answers-error" style="color:red"></span>
                                 <div class="input-group-append">
                                     <button id="removeRow" type="button" class="btn btn-danger">Remove</button>

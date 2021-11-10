@@ -10,6 +10,9 @@ use App\User;
 use App\Models\Level;
 use App\Models\Subject;
 use App\Models\Quiz;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ResultExport;
+
 class QizzesController extends Controller
 {
     /**
@@ -147,5 +150,28 @@ class QizzesController extends Controller
      } catch(\Exception $e){
             return response()->json(['message' => $e->getMessage(), 'alert_type' => 'error']);
         }
+    }
+
+    public function results($id){
+        $quiz = Quiz::findOrFail($id);
+        $results = $quiz->results()->paginate(10);
+        $questions = $quiz->questions()->select('full_mark')->get();
+        $fullmark = 0;
+        foreach($questions as $question){
+            $fullmark += $question->full_mark;
+        }
+        return view('teachers.quizzes.results',compact('quiz','results','fullmark'));
+    }
+
+    public function downloadExcelResult($id)
+    {
+        $quiz = Quiz::findOrFail($id);
+        $results = $quiz->results()->latest()->get();
+        $questions = $quiz->questions()->select('full_mark')->get();
+        $fullmark = 0;
+        foreach($questions as $question){
+            $fullmark += $question->full_mark;
+        }
+        return Excel::download(new ResultExport($results,$fullmark), 'results.xlsx');
     }
 }

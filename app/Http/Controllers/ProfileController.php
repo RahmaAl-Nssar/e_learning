@@ -57,5 +57,11 @@ class ProfileController extends Controller
 
     }
     
+    public function edit_student_profile()
+    {
+        $user = User::where('id',auth()->id())->first();
+        
+        return view('students.includes.form-profile',compact('user'));
+    }
  
 }

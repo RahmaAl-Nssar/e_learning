@@ -29,7 +29,7 @@
                     </a>
                 </div>
                 <div class="col-lg-2 col-6">
-                    <a href="teacher" class="btn btn-submit " class="show-teacher-form">
+                    <a href="{{ route('teacher.register') }}" class="btn btn-submit " class="show-teacher-form">
                         <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                         محاضر
                     </a>

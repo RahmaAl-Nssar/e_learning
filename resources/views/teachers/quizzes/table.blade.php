@@ -22,8 +22,8 @@
                 <td><input type="checkbox" id="switcherySize" class="switchery form-check-label checkbox checkbox-slider--b-flat" data-size="lg" {{ $quiz->published == 1 ? 'checked':'' }} /></td>
                 <td class="d-max-none"><a type="button" href="{{ route('qusetions.index', $quiz->id) }}" class="btn btn-edit"
                    >الاسئلة</a></td>
-                <td class="d-max-none"><a type="button" href="{{ route('quizes.edit', $quiz->id) }}" class="btn btn-edit"
-                    data-toggle="modal" data-target="#edit-course" id="create_quiz">النتائج</a></td>
+                <td class="d-max-none"><a type="button" href="{{ route('teacher.results',$quiz->id) }}" class="btn btn-edit"
+                   >النتائج</a></td>
 
                 <td><a type="button" href="{{ route('quizes.edit', $quiz->id) }}" class="btn btn-edit"
                         data-toggle="modal" data-target="#edit-course" id="create_quiz">تعديل</a></td>
